@@ -22,7 +22,9 @@ public class SnakeBox extends JPanel {
     }
 
     public void changePlace(int x, int y){
-        this.setBounds(x, y, 28, 28);
+        this.x = x;
+        this.y = y;
+        this.setBounds(this.x, this.y, 28, 28);
     }
 
     @Override
