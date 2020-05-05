@@ -4,70 +4,66 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.TimerTask;
 import java.util.Timer;
 
-public class Snake extends JFrame{
+public class Snake extends JFrame implements ActionListener{
 
-JButton snake = new JButton();
-Icon snakeB = new ImageIcon("src\\Pics\\Snake.png");
 int x = 0, xVel = 28;
-
+int y = 172, yVel = 28;
+BufferedImage background;
+SnakeBox [] snakeBox = new SnakeBox[3];
 
     public Snake(){
         super("Snake");
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(560, 420);
         setLayout(null);
-        setSize(500, 400);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
-        enableInputMethods(true);
-        Board board = new Board();
-        add(board);
-        this.setVisible(true);
-
-//        paintBackground("src\\Pics\\SnakeBackground.png");
-//        this.setResizable(false);
-//
-//        snake.setBounds(0, x, 28,28);
-//        snake.setIcon(snakeB);
-//        snake.setBorder(new EmptyBorder(0, 0, 0, 0));
-//        snake.addActionListener(this);
-//        add(snake);
-//
-////        SnakeBox snakeBox = new SnakeBox();
-////        this.add(snakeBox);
-//        this.setVisible(true);
-//        Timer timer = new Timer();
-//        timer.schedule(new TimerTask() {
-//            @Override
-//            public void run() {
-//                x += xVel;
-//                System.out.println(x);
-//
-//            }
-//        }, 1000, 1000);
+        try {
+            setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("D:\\Projekty\\Snake-Java\\SnakeJava\\src\\Pics\\SnakeBackground.png")))));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        setVisible(true);
+        initializeSnake();
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                moveSnake();
+            }
+        }, 500, 500);
+    }
+    public void repaint(){
 
     }
 
-//    public void repaintSnake(){
-//        this.remove(snake);
-//        x = 28;
-//        add(snake);
-//    }
-//
-//    public void paintBackground(String path){
-//        try {
-//            this.setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File(path)))));
-//        } catch (IOException e){
-//            e.printStackTrace();
-//        }
-//    }
+    public void initializeSnake(){
+        x = 252;
+        y = 280;
+        for(int i = 0; i < snakeBox.length; i++){
+            snakeBox[i] = new SnakeBox(252, 280 + i*28);
+            add(snakeBox[i]);
+        }
+    }
+    public void moveSnake(){
+        for(int i = 0; i < snakeBox.length; i++){
+            snakeBox[i].setX(snakeBox[i].getX());
+            snakeBox[i].setY(snakeBox[i].getY() - 28);
+            snakeBox[i].changePlace(snakeBox[i].getX(), snakeBox[i].getY());
+        }
+    }
 
-//    @Override
-//    public void actionPerformed(ActionEvent e) {
-//        repaintSnake();
-//    }
+    @Override
+    public void paintComponents(Graphics g) {
+        super.paintComponents(g);
+        g.drawImage(background, 0,0, this);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        repaint();
+    }
 }
