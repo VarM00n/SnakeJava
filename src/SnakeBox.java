@@ -8,7 +8,6 @@ import java.io.IOException;
 public class SnakeBox extends JPanel {
    BufferedImage SnakeIcon;
    int x, y;
-   boolean initiated = false;
 
     public SnakeBox(int x, int y){
         this.x = x;
