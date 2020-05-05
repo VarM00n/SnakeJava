@@ -9,6 +9,7 @@ import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.TimerTask;
 import java.util.Timer;
 
@@ -17,7 +18,7 @@ public class Snake extends JFrame implements ActionListener{
 int x = 0, xVel = 28;
 int y = 172, yVel = 28;
 BufferedImage background;
-SnakeBox [] snakeBox = new SnakeBox[7];
+ArrayList<SnakeBox> snakeBox = new ArrayList<SnakeBox>();
 
     /**
      * Where to go 0 - top, 1 - right, 2 - bot, 3 - left
@@ -28,7 +29,7 @@ boolean chosenDirection = false;
         super("Snake");
         setSize(560, 420);
         setLayout(null);
-        setDefaultCloseOperation();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         try {
             setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("D:\\Projekty\\Snake-Java\\SnakeJava\\src\\Pics\\SnakeBackground.png")))));
         } catch (IOException e) {
@@ -83,7 +84,6 @@ boolean chosenDirection = false;
         setVisible(true);
         initializeSnake();
         Timer timer = new Timer();
-
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -97,34 +97,36 @@ boolean chosenDirection = false;
     public void initializeSnake(){
         x = 252;
         y = 280;
-        for(int i = 0; i < snakeBox.length; i++){
-            snakeBox[i] = new SnakeBox(252, 280 + i*28);
-            add(snakeBox[i]);
+        for(int i = 0; i < 3; i++){
+            snakeBox.add(i, new SnakeBox(252, 280 + i*28));
+            add(snakeBox.get(i));
         }
     }
     public void moveSnake(){
         Position tempPos = new Position();
-        checkIfNextEmpty(snakeBox[0]);
+        if(checkIfNextEmpty(snakeBox.get(0))) {
+            dispose();
+        }
         if(direction == 0)
-            tempPos = goUp(snakeBox[0]);
+            tempPos = goUp(snakeBox.get(0));
         if(direction == 1)
-            tempPos = goRight(snakeBox[0]);
+            tempPos = goRight(snakeBox.get(0));
         if(direction == 2)
-            tempPos = goDown(snakeBox[0]);
+            tempPos = goDown(snakeBox.get(0));
         if(direction == 3)
-            tempPos = goLeft(snakeBox[0]);
-        for(int i = 1; i < snakeBox.length; i++){
-            tempPos = moveOneBlockOfSnake(snakeBox[i], tempPos);
+            tempPos = goLeft(snakeBox.get(0));
+        for(int i = 1; i < snakeBox.size(); i++){
+            tempPos = moveOneBlockOfSnake(snakeBox.get(i), tempPos);
         }
     }
-
+    
     public boolean checkIfNextEmpty (SnakeBox snake){
         Position position = new Position();
         if(direction == 0) {
             position.setPosition(snake.getX(), snake.getY() - 28);
-            for (SnakeBox box : this.snakeBox) {
+            for (SnakeBox box : snakeBox) {
                 if (box.getX() == position.x && box.getY() == position.y) {
-                    System.out.println("You lost");
+                    return true;
                 }
             }
         }
@@ -132,7 +134,7 @@ boolean chosenDirection = false;
             position.setPosition(snake.getX() + 28, snake.getY());
             for (SnakeBox box : this.snakeBox) {
                 if (box.getX() == position.x && box.getY() == position.y) {
-                    System.out.println("You lost");
+                    return true;
                 }
             }
         }
@@ -140,7 +142,7 @@ boolean chosenDirection = false;
             position.setPosition(snake.getX(), snake.getY() + 28);
             for (SnakeBox box : this.snakeBox) {
                 if (box.getX() == position.x && box.getY() == position.y) {
-                    System.out.println("You lost");
+                    return true;
                 }
             }
         }
@@ -148,7 +150,7 @@ boolean chosenDirection = false;
             position.setPosition(snake.getX() - 28, snake.getY());
             for (SnakeBox box : this.snakeBox) {
                 if (box.getX() == position.x && box.getY() == position.y) {
-                    System.out.println("You lost");
+                    return true;
                 }
             }
         }
@@ -170,7 +172,6 @@ boolean chosenDirection = false;
         snakeBox.changePlace(snakeBox.getX(), snakeBox.getY());
         return position;
     }
-
     public Position goRight(SnakeBox snakeBox){
         Position position = new Position();
         position.x = snakeBox.getX();
@@ -180,7 +181,6 @@ boolean chosenDirection = false;
         snakeBox.changePlace(snakeBox.getX(), snakeBox.getY());
         return position;
     }
-
     public Position goLeft(SnakeBox snakeBox){
         Position position = new Position();
         position.x = snakeBox.getX();
