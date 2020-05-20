@@ -1,6 +1,5 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,22 +13,24 @@ import java.util.Random;
 import java.util.TimerTask;
 import java.util.Timer;
 
-public class Snake extends JFrame implements ActionListener{
+public class HardSnake extends JFrame implements ActionListener{
 
-int x = 0, xVel = 28;
-int y = 172, yVel = 28;
-int SizeX = 25, SizeY = 20;
-BufferedImage background;
-ArrayList<SnakeBox> snakeBox = new ArrayList<SnakeBox>();
-SnakeBox fruit = new SnakeBox(0,0);
-Name name = new Name();
+    int x = 0, xVel = 28;
+    int y = 172, yVel = 28;
+    int SizeX = 27, SizeY = 21;
+    BufferedImage background;
+    ArrayList<SnakeBox> snakeBox = new ArrayList<SnakeBox>();
+    SnakeBox fruit = new SnakeBox(0,0);
+    Name name = new Name();
+    Brick [][] bricks = new Brick[26][21];
+    boolean [][] tableOfBricks = new boolean[26][21];
     /**
      * Where to go 0 - top, 1 - right, 2 - bot, 3 - left
      */
-int direction = 0;
-boolean chosenDirection = false;
-boolean eaten = false;
-    public Snake(){
+    int direction = 0;
+    boolean chosenDirection = false;
+    boolean eaten = false;
+    public HardSnake(){
         super("Snake");
         setSize(28 * SizeX - 12, 28 * SizeY - 17);
         setLayout(null);
@@ -85,8 +86,8 @@ boolean eaten = false;
             public void keyReleased(KeyEvent e) {}
         };
         this.addKeyListener(listener);
+        addBricks();
         setVisible(true);
-        add(name);
         initializeSnake();
         add(fruit);
         setPlaceForFruit();
@@ -96,18 +97,57 @@ boolean eaten = false;
             public void run() {
                 moveSnake();
                 chosenDirection = false;
-                System.out.println(direction);
             }
-        }, 150, 150);
+        }, 100, 100);
     }
-    private static int getRandomNumberInRange(int max) {
 
-        if (1 >= max) {
-            throw new IllegalArgumentException("max must be greater than min");
+    public void addBricks(){
+        for(int i = 0; i < SizeX - 1; i++){
+            for(int j = 0; j < SizeY - 1; j++) {
+                if((i == 0 || j == 0 || i == 25 || j == 15) && j != 17 && j != 18 && j != 16) {
+                    bricks[i][j] = new Brick(i * 28, j * 28);
+                    tableOfBricks[i][j] = true;
+                    add(bricks[i][j]);
+                }
+                if(i == 2 && j == 2 || i == 3 && j == 3 || i == 4 && j == 4 || i == 23 && j == 13
+                        || i == 22 && j == 12 || i == 21 && j == 11){
+                    bricks[i][j] = new Brick(i * 28, j * 28);
+                    tableOfBricks[i][j] = true;
+                    add(bricks[i][j]);
+                }
+                if(i == 23 && j == 2 || i == 22 && j == 3 || i == 21 && j == 4 || i == 2 && j == 13
+                        || i == 3 && j == 12 || i == 4 && j == 11){
+                    bricks[i][j] = new Brick(i * 28, j * 28);
+                    tableOfBricks[i][j] = true;
+                    add(bricks[i][j]);
+                }
+                if(i == 5 && j == 7 || i == 5 && j == 8 || i == 20 && j == 7 || i == 20 && j == 8){
+                    bricks[i][j] = new Brick(i * 28, j * 28);
+                    tableOfBricks[i][j] = true;
+                    add(bricks[i][j]);
+                }
+                if(i == 7 && j == 5 || i == 8 && j == 5 || i == 9 && j == 5 || i == 10 && j == 5 ||
+                        i == 11 && j == 5 || i == 14 && j == 5 || i == 15 && j == 5 || i == 16 && j == 5
+                        || i == 17 && j == 5 || i == 18 && j == 5){
+                    bricks[i][j] = new Brick(i * 28, j * 28);
+                    tableOfBricks[i][j] = true;
+                    add(bricks[i][j]);
+                }
+                if(i == 7 && j == 10 || i == 8 && j == 10 || i == 9 && j == 10 || i == 10 && j == 10 ||
+                        i == 11 && j == 10 || i == 14 && j == 10 || i == 15 && j == 10 || i == 16 && j == 10
+                        || i == 17 && j == 10 || i == 18 && j == 10){
+                    bricks[i][j] = new Brick(i * 28, j * 28);
+                    tableOfBricks[i][j] = true;
+                    add(bricks[i][j]);
+                }
+            }
         }
 
-        Random r = new Random();
-        return r.nextInt((max - 1) + 1) + 1;
+    }
+
+    private static int getRandomNumberInRange(int max) {
+        int random = (int)(max * Math.random() + 1);
+        return random;
     }
 
     public void setPlaceForFruit(){
@@ -116,13 +156,21 @@ boolean eaten = false;
         while(check){
             int check1 = 0;
             positionOfFruit.x = getRandomNumberInRange(23);
-            positionOfFruit.y = getRandomNumberInRange(17);
-            System.out.println(positionOfFruit.x);
-            System.out.println(positionOfFruit.y);
+            positionOfFruit.y = getRandomNumberInRange(14);
             for (SnakeBox box : snakeBox) {
                 if (box.getX() == positionOfFruit.x * 28 && box.getY() == positionOfFruit.y * 28) {
                     check1 = 1;
                     break;
+                }
+            }
+            for(int i = 0; i < 26; i++){
+                for(int j = 0; j < 21; j++){
+                    if(tableOfBricks[i][j]){
+                        if(positionOfFruit.x == i && positionOfFruit.y == j){
+                            check1 = 1;
+                            break;
+                        }
+                    }
                 }
             }
             if(check1 == 0){
@@ -134,14 +182,14 @@ boolean eaten = false;
 
     public void initializeSnake(){
         for(int i = 0; i < 3; i++){
-            snakeBox.add(i, new SnakeBox(252, 280 + i*28));
+            snakeBox.add(i, new SnakeBox(336, 280 + i*28));
             add(snakeBox.get(i));
         }
     }
 
     public void moveSnake(){
         Position tempPos = new Position();
-        if(checkIfNextEmpty(snakeBox.get(0))) {
+        if(checkIfNextEmpty(snakeBox.get(0)) || checkIfNextEmpty1(snakeBox.get(0))) {
             dispose();
         }
         if(direction == 0)
@@ -207,6 +255,51 @@ boolean eaten = false;
             }
             if(fruit.getX() == position.x && fruit.getY() == position.y){
                 eaten = true;
+            }
+        }
+        return false;
+    }
+
+    public boolean checkIfNextEmpty1 (SnakeBox snake){
+        Position position = new Position();
+        if(direction == 0) {
+            position.setPosition(snake.getX(), snake.getY() - 28);
+            for(int i = 0; i < 26; i++){
+                for(int j = 0; j < 21; j++){
+                    if(tableOfBricks[i][j] && position.x/28 == i && position.y/28 == j){
+                        return true;
+                    }
+                }
+            }
+        }
+        if(direction == 1) {
+            position.setPosition(snake.getX() + 28, snake.getY());
+            for(int i = 0; i < 26; i++){
+                for(int j = 0; j < 21; j++){
+                    if(tableOfBricks[i][j] && position.x/28 == i && position.y/28 == j){
+                        return true;
+                    }
+                }
+            }
+        }
+        if(direction == 2){
+            position.setPosition(snake.getX(), snake.getY() + 28);
+            for(int i = 0; i < 26; i++){
+                for(int j = 0; j < 21; j++){
+                    if(tableOfBricks[i][j] && position.x/28 == i && position.y/28 == j){
+                        return true;
+                    }
+                }
+            }
+        }
+        if(direction == 3){
+            position.setPosition(snake.getX() - 28, snake.getY());
+            for(int i = 0; i < 26; i++){
+                for(int j = 0; j < 21; j++){
+                    if(tableOfBricks[i][j] && position.x/28 == i && position.y/28 == j){
+                        return true;
+                    }
+                }
             }
         }
         return false;

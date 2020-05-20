@@ -1,16 +1,12 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 import java.util.Timer;
-import java.util.TimerTask;
 
-public class Menu extends JFrame implements ActionListener {
+public class Menu extends JFrame{
 
 int SizeX = 27, SizeY = 21;
 Brick [][] bricks = new Brick[26][21];
@@ -18,6 +14,11 @@ Name logo = new Name();
 int direction = 0;
 boolean [][] tableOfBricks = new boolean[26][21];
 ArrayList<SnakeBox> snakeBox = new ArrayList<SnakeBox>();
+Easy Easy = new Easy();
+Medium Medium = new Medium();
+Hard Hard = new Hard();
+
+
     public Menu(){
         super("Snake");
         setSize(28 * SizeX - 12, 28 * SizeY - 17);
@@ -35,6 +36,90 @@ ArrayList<SnakeBox> snakeBox = new ArrayList<SnakeBox>();
         }
         addBricks();
         add(logo);
+        add(Easy);
+        add(Medium);
+        add(Hard);
+        Easy.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                dispose();
+                new EasySnake();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        Medium.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                dispose();
+                new MediumSnake();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
+        Hard.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                dispose();
+                new HardSnake();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         setVisible(true);
         initializeSnake();
         Timer timer = new Timer();
@@ -96,9 +181,6 @@ ArrayList<SnakeBox> snakeBox = new ArrayList<SnakeBox>();
         tableOfBricks[19][6] = true;
         tableOfBricks[19][7] = true;
         tableOfBricks[19][8] = true;
-
-
-
     }
 
     public void initializeSnake(){
@@ -288,9 +370,6 @@ ArrayList<SnakeBox> snakeBox = new ArrayList<SnakeBox>();
         return position;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
 
-    }
 }
 

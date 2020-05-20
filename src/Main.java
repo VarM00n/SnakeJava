@@ -1,6 +1,6 @@
 public class Main {
 
     public static void main(String[] args) {
-	    Snake snake = new Snake();
+        EasySnake snake = new EasySnake();
     }
 }
