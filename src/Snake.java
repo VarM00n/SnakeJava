@@ -22,6 +22,7 @@ int SizeX = 25, SizeY = 20;
 BufferedImage background;
 ArrayList<SnakeBox> snakeBox = new ArrayList<SnakeBox>();
 SnakeBox fruit = new SnakeBox(0,0);
+Name name = new Name();
     /**
      * Where to go 0 - top, 1 - right, 2 - bot, 3 - left
      */
@@ -34,7 +35,7 @@ boolean eaten = false;
         setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         try {
-            setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("D:\\Projekty\\Snake-Java\\SnakeJava\\src\\Pics\\SnakeBackground.png")))));
+            setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("src\\Pics\\SnakeBackground.png")))));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,6 +86,7 @@ boolean eaten = false;
         };
         this.addKeyListener(listener);
         setVisible(true);
+        add(name);
         initializeSnake();
         add(fruit);
         setPlaceForFruit();

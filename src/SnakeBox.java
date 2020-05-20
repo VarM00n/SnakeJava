@@ -13,7 +13,7 @@ public class SnakeBox extends JPanel {
         this.x = x;
         this.y = y;
         try {
-            SnakeIcon = ImageIO.read(new File("D:\\Projekty\\Snake-Java\\SnakeJava\\src\\Pics\\Snake.png"));
+            SnakeIcon = ImageIO.read(new File("src\\Pics\\Snake.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,7 +49,5 @@ public class SnakeBox extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         g.drawImage(SnakeIcon, 0,0, null);
-
-
     }
 }
