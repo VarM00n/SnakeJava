@@ -20,6 +20,9 @@ Medium Medium = new Medium();
 Hard Hard = new Hard();
 int lvl;
 Exit exit = new Exit();
+EasyEnchanced easyEnchanced = new EasyEnchanced();
+MediumEnchanced mediumEnchanced = new MediumEnchanced();
+HardEnchanced hardEnchanced = new HardEnchanced();
 
     public Menu(){
         super("Snake");
@@ -38,12 +41,16 @@ Exit exit = new Exit();
                 tableOfBricks[i][j] = false;
             }
         }
-        addBricks();
-        add(logo);
+        add(easyEnchanced);
+        add(mediumEnchanced);
+        add(hardEnchanced);
         add(Easy);
         add(Medium);
         add(Hard);
+        addBricks();
+        add(logo);
         add(exit);
+
         Easy.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -63,12 +70,14 @@ Exit exit = new Exit();
 
             @Override
             public void mouseEntered(MouseEvent e) {
-
+                easyEnchanced.setVisible(true);
+                logo.setVisible(false);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-
+                easyEnchanced.setVisible(false);
+                logo.setVisible(true);
             }
         });
         Medium.addMouseListener(new MouseListener() {
@@ -90,12 +99,14 @@ Exit exit = new Exit();
 
             @Override
             public void mouseEntered(MouseEvent e) {
-
+                mediumEnchanced.setVisible(true);
+                logo.setVisible(false);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-
+                mediumEnchanced.setVisible(false);
+                logo.setVisible(true);
             }
         });
         Hard.addMouseListener(new MouseListener() {
@@ -117,12 +128,14 @@ Exit exit = new Exit();
 
             @Override
             public void mouseEntered(MouseEvent e) {
-
+                hardEnchanced.setVisible(true);
+                logo.setVisible(false);
             }
 
             @Override
             public void mouseExited(MouseEvent e) {
-
+                hardEnchanced.setVisible(false);
+                logo.setVisible(true);
             }
         });
         setVisible(true);
