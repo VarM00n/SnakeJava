@@ -1,10 +1,7 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -20,6 +17,11 @@ public class HardSnake extends JFrame implements ActionListener{
     int SizeX = 27, SizeY = 21;
     int counter = 0;
     int timeros = 0;
+    int scoree = 0;
+    boolean loser = false;
+    Logo logo = new Logo();
+    Home home = new Home();
+    Score score = new Score();
     BufferedImage background;
     ArrayList<SnakeBox> snakeBox = new ArrayList<SnakeBox>();
     SnakeBox fruit = new SnakeBox(0,0);
@@ -91,15 +93,45 @@ public class HardSnake extends JFrame implements ActionListener{
         };
         this.addKeyListener(listener);
         addBricks();
+        add(score);
         setVisible(true);
         initializeSnake();
         add(fruit);
+        add(home);
+        add(logo);
+        home.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                dispose();
+                new Menu();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         setPlaceForFruit();
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                if(direction != -1) {
+                if(direction != -1  && !loser) {
                     moveSnake();
                     chosenDirection = false;
                 }
@@ -182,6 +214,9 @@ public class HardSnake extends JFrame implements ActionListener{
             if(check1 == 0){
                 fruit.changePlace(positionOfFruit.x * 28, positionOfFruit.y * 28);
                 counter++;
+                score.changeScore(scoree);
+                score.repaint();
+                scoree += 10;
                 if(counter == 5){
                     counter = 0;
                     timeros++;
@@ -201,7 +236,8 @@ public class HardSnake extends JFrame implements ActionListener{
     public void moveSnake(){
         Position tempPos = new Position();
         if(checkIfNextEmpty(snakeBox.get(0)) || checkIfNextEmpty1(snakeBox.get(0))) {
-            dispose();
+            new Lost(3, this);
+            loser = true;
         }
         if(direction == 0)
             tempPos = goUp(snakeBox.get(0));
