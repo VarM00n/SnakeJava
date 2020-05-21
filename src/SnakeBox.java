@@ -13,7 +13,7 @@ public class SnakeBox extends JPanel {
         this.x = x;
         this.y = y;
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\Snake.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\Snake.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

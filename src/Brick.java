@@ -10,7 +10,7 @@ public class Brick extends JPanel {
 
     public Brick(int x, int y){
         try {
-            BrickImage = ImageIO.read(new File("src\\Pics\\Brick.png"));
+            BrickImage = ImageIO.read(new File("res\\Pics\\Brick.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

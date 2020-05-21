@@ -11,7 +11,7 @@ public class Easy extends JPanel {
 
     public Easy(){
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\Easy.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\Easy.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

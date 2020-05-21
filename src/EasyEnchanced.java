@@ -11,7 +11,7 @@ public class EasyEnchanced extends JPanel {
 
     public EasyEnchanced(){
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\EasyEnchanced.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\EasyEnchanced.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

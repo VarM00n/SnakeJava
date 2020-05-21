@@ -11,7 +11,7 @@ public class HardEnchanced extends JPanel {
 
     public HardEnchanced(){
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\HardEnchanced.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\HardEnchanced.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -11,7 +11,7 @@ public class Home extends JPanel {
 
     public Home(){
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\Home.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\Home.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -21,7 +21,7 @@ public class Home extends JPanel {
     }
     public Home(int x, int y){
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\Home.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\Home.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

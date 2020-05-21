@@ -11,7 +11,7 @@ public class Exit extends JPanel {
 
     public Exit(){
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\Exit.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\Exit.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

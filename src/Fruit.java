@@ -10,7 +10,7 @@ public class Fruit extends JPanel {
     int y;
     public Fruit(){
         try {
-            SnakeIcon = ImageIO.read(new File("D:\\Projekty\\Snake-Java\\SnakeJava\\src\\Pics\\Snake.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\Snake.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

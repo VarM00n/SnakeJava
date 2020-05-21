@@ -11,7 +11,7 @@ public class Medium extends JPanel {
 
     public Medium(){
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\Medium.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\Medium.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

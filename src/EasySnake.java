@@ -42,7 +42,7 @@ boolean eaten = false;
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         try {
-            setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("src\\Pics\\SnakeBackground.png")))));
+            setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("res\\Pics\\SnakeBackground.png")))));
         } catch (IOException e) {
             e.printStackTrace();
         }

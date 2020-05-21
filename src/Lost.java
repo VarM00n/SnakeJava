@@ -26,7 +26,7 @@ Replay replay = new Replay(10, 20, this.lvl);
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         try {
-            setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("src\\Pics\\LostBackground.png")))));
+            setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("res\\Pics\\LostBackground.png")))));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -100,7 +100,7 @@ Replay replay = new Replay(10, 20, this.lvl);
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         try {
-            setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("src\\Pics\\LostBackground.png")))));
+            setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("res\\Pics\\LostBackground.png")))));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -173,7 +173,7 @@ Replay replay = new Replay(10, 20, this.lvl);
         this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         try {
-            setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("src\\Pics\\LostBackground.png")))));
+            setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("res\\Pics\\LostBackground.png")))));
         } catch (IOException e) {
             e.printStackTrace();
         }

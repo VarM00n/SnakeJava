@@ -12,7 +12,7 @@ private String scoreForDisplay;
 BufferedImage SnakeIcon;
     public Score(){
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\SnakeBackground.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\SnakeBackground.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

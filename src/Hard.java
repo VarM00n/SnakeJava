@@ -11,7 +11,7 @@ public class Hard extends JPanel {
 
     public Hard(){
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\Hard.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\Hard.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

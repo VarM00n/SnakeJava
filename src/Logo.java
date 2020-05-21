@@ -11,7 +11,7 @@ public class Logo extends JPanel {
 
     public Logo(){
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\LogoForMenu.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\LogoForMenu.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

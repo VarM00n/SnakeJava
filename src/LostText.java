@@ -12,7 +12,7 @@ public class LostText extends JPanel {
     BufferedImage SnakeIcon;
     public LostText(){
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\SnakeBackground.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\SnakeBackground.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

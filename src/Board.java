@@ -7,11 +7,10 @@ import java.io.IOException;
 
 public class Board extends JPanel {
     BufferedImage background;
-
     public Board(){
         setLayout(null);
         try {
-            background = ImageIO.read(new File("D:\\Projekty\\Snake-Java\\SnakeJava\\src\\Pics\\SnakeBackground.png"));
+            background = ImageIO.read(new File("res\\Pics\\SnakeBackground.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

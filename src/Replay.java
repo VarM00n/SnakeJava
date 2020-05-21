@@ -11,7 +11,7 @@ public class Replay extends JPanel {
 
     public Replay(int x, int y, int lvl){
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\Replay.png"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\Replay.png"));
         } catch (IOException e) {
             e.printStackTrace();
         }

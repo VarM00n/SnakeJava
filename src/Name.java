@@ -10,7 +10,7 @@ public class Name extends JPanel {
 
     public Name(){
         try {
-            SnakeIcon = ImageIO.read(new File("src\\Pics\\SnakeLogo.jpg"));
+            SnakeIcon = ImageIO.read(new File("res\\Pics\\SnakeLogo.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
