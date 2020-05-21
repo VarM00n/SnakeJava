@@ -1,15 +1,11 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Random;
 import java.util.TimerTask;
 import java.util.Timer;
 
@@ -18,16 +14,24 @@ public class EasySnake extends JFrame implements ActionListener{
 int x = 0, xVel = 28;
 int y = 172, yVel = 28;
 int SizeX = 27, SizeY = 21;
+int scoree = 0;
+int counter = 0;
+int timeros = 0;
+int lvl = 0;
+boolean loser = false;
+Logo logo = new Logo();
 BufferedImage background;
 ArrayList<SnakeBox> snakeBox = new ArrayList<SnakeBox>();
 SnakeBox fruit = new SnakeBox(0,0);
 Name name = new Name();
 Brick [][] bricks = new Brick[26][21];
+Score score = new Score();
 boolean [][] tableOfBricks = new boolean[26][21];
+Home home = new Home();
     /**
      * Where to go 0 - top, 1 - right, 2 - bot, 3 - left
      */
-int direction = 0;
+int direction = -1;
 boolean chosenDirection = false;
 boolean eaten = false;
     public EasySnake(){
@@ -35,6 +39,8 @@ boolean eaten = false;
         setSize(28 * SizeX - 12, 28 * SizeY - 17);
         setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         try {
             setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("src\\Pics\\SnakeBackground.png")))));
         } catch (IOException e) {
@@ -87,20 +93,50 @@ boolean eaten = false;
         };
         this.addKeyListener(listener);
         addBricks();
+        add(score);
         setVisible(true);
-
         initializeSnake();
         add(fruit);
+        add(home);
+        add(logo);
+        home.addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                dispose();
+                new Menu();
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
         setPlaceForFruit();
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                moveSnake();
-                chosenDirection = false;
-                System.out.println(direction);
+                if(direction != -1 && !loser) {
+                    moveSnake();
+                    chosenDirection = false;
+                }
             }
-        }, 500, 400);
+        }, 500, 400 - timeros*10);
     }
 
     public void addBricks(){
@@ -127,8 +163,6 @@ boolean eaten = false;
             int check1 = 0;
             positionOfFruit.x = getRandomNumberInRange(23);
             positionOfFruit.y = getRandomNumberInRange(14);
-            System.out.println(positionOfFruit.x);
-            System.out.println(positionOfFruit.y);
             for (SnakeBox box : snakeBox) {
                 if (box.getX() == positionOfFruit.x * 28 && box.getY() == positionOfFruit.y * 28) {
                     check1 = 1;
@@ -137,6 +171,14 @@ boolean eaten = false;
             }
             if(check1 == 0){
                 fruit.changePlace(positionOfFruit.x * 28, positionOfFruit.y * 28);
+                counter++;
+                score.changeScore(scoree);
+                score.repaint();
+                scoree += 10;
+                if(counter == 5){
+                    counter = 0;
+                    timeros++;
+                }
                 check = false;
             }
         }
@@ -144,15 +186,16 @@ boolean eaten = false;
 
     public void initializeSnake(){
         for(int i = 0; i < 3; i++){
-            snakeBox.add(i, new SnakeBox(252, 280 + i*28));
+            snakeBox.add(i, new SnakeBox(336, 280 + i*28));
             add(snakeBox.get(i));
         }
     }
 
-    public void moveSnake(){
+    public void moveSnake() {
         Position tempPos = new Position();
         if(checkIfNextEmpty(snakeBox.get(0)) || checkIfNextEmpty1(snakeBox.get(0))) {
-            dispose();
+            new Lost(1, this);
+            loser = true;
         }
         if(direction == 0)
             tempPos = goUp(snakeBox.get(0));

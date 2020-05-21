@@ -18,16 +18,19 @@ public class MediumSnake extends JFrame implements ActionListener{
     int x = 0, xVel = 28;
     int y = 172, yVel = 28;
     int SizeX = 27, SizeY = 21;
+    int counter = 0;
+    int timeros = 0;
     BufferedImage background;
     ArrayList<SnakeBox> snakeBox = new ArrayList<SnakeBox>();
     SnakeBox fruit = new SnakeBox(0,0);
     Name name = new Name();
     Brick [][] bricks = new Brick[26][21];
     boolean [][] tableOfBricks = new boolean[26][21];
+    int score = 0;
     /**
      * Where to go 0 - top, 1 - right, 2 - bot, 3 - left
      */
-    int direction = 0;
+    int direction = -1;
     boolean chosenDirection = false;
     boolean eaten = false;
     public MediumSnake(){
@@ -35,6 +38,8 @@ public class MediumSnake extends JFrame implements ActionListener{
         setSize(28 * SizeX - 12, 28 * SizeY - 17);
         setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         try {
             setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("src\\Pics\\SnakeBackground.png")))));
         } catch (IOException e) {
@@ -95,10 +100,12 @@ public class MediumSnake extends JFrame implements ActionListener{
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                moveSnake();
-                chosenDirection = false;
+                if(direction != -1) {
+                    moveSnake();
+                    chosenDirection = false;
+                }
             }
-        }, 150, 150);
+        }, 150, 150 - timeros*10);
     }
 
     public void addBricks(){
@@ -154,6 +161,11 @@ public class MediumSnake extends JFrame implements ActionListener{
             }
             if(check1 == 0){
                 fruit.changePlace(positionOfFruit.x * 28, positionOfFruit.y * 28);
+                counter++;
+                if(counter == 5){
+                    counter = 0;
+                    timeros++;
+                }
                 check = false;
             }
         }
@@ -161,7 +173,7 @@ public class MediumSnake extends JFrame implements ActionListener{
 
     public void initializeSnake(){
         for(int i = 0; i < 3; i++){
-            snakeBox.add(i, new SnakeBox(252, 280 + i*28));
+            snakeBox.add(i, new SnakeBox(336, 280 + i*28));
             add(snakeBox.get(i));
         }
     }

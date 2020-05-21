@@ -1,5 +1,6 @@
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
@@ -17,13 +18,16 @@ ArrayList<SnakeBox> snakeBox = new ArrayList<SnakeBox>();
 Easy Easy = new Easy();
 Medium Medium = new Medium();
 Hard Hard = new Hard();
-
+int lvl;
+Exit exit = new Exit();
 
     public Menu(){
         super("Snake");
         setSize(28 * SizeX - 12, 28 * SizeY - 17);
         setLayout(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setLocation(dim.width/2-this.getSize().width/2, dim.height/2-this.getSize().height/2);
         try {
             setContentPane(new JLabel(new ImageIcon(ImageIO.read(new File("src\\Pics\\SnakeBackground.png")))));
         } catch (IOException e) {
@@ -39,6 +43,7 @@ Hard Hard = new Hard();
         add(Easy);
         add(Medium);
         add(Hard);
+        add(exit);
         Easy.addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
